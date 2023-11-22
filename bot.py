@@ -94,7 +94,7 @@ def start():
                 continue
             sendWord(word)
             button = driver.find_element("xpath", "/html/body/div[2]/div[3]/div[1]/div[1]/button")
-            if button!=null:
+            if button!=None:
                 button.click()
         except:
             continue
