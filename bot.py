@@ -50,7 +50,7 @@ def login():
     name.send_keys(Keys.ENTER)
 
 def join():
-    wait = WebDriverWait(driver,60)
+    wait = WebDriverWait(driver,120)
     wait.until(EC.visibility_of_element_located((By.XPATH,"/html/body/div[2]/div[4]/div[1]")))
     iframe = driver.find_element("xpath", "/html/body/div[2]/div[4]/div[1]/iframe")
     driver.switch_to.frame(iframe)
