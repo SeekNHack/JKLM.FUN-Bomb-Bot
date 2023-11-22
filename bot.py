@@ -5,6 +5,7 @@ import sys
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
+from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.keys import Keys
 import random
 
@@ -13,8 +14,8 @@ if len(sys.argv) < 4:
     print("Usage: python script.py [link] [it/eng] [username]")
     exit()
 file = open(f"{sys.argv[2]}.txt",'r').readlines()
-
-driver = webdriver.Chrome(ChromeDriverManager().install())
+s = Service(ChromeDriverManager().install())
+driver = webdriver.Chrome(service=s)
 driver.get(sys.argv[1])
 
 def searchWord(wordlist,letters):
