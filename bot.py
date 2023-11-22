@@ -8,6 +8,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.keys import Keys
 import random
+from selenium.common.exceptions import TimeoutException
 
 
 if len(sys.argv) < 4:
@@ -54,10 +55,18 @@ def join():
     wait.until(EC.visibility_of_element_located((By.XPATH,"/html/body/div[2]/div[4]/div[1]")))
     iframe = driver.find_element("xpath", "/html/body/div[2]/div[4]/div[1]/iframe")
     driver.switch_to.frame(iframe)
-    wait = WebDriverWait(driver,60)
-    wait.until(EC.visibility_of_element_located((By.XPATH,"/html/body/div[2]/div[3]/div[1]/div[1]/button")))
-    button = driver.find_element("xpath", "/html/body/div[2]/div[3]/div[1]/div[1]/button")
-    button.click()
+    joined=False
+    while not joined:
+        try:
+            wait = WebDriverWait(driver,10)
+            wait.until(EC.visibility_of_element_located((By.XPATH,"/html/body/div[2]/div[3]/div[1]/div[1]/button")))
+            button = driver.find_element("xpath", "/html/body/div[2]/div[3]/div[1]/div[1]/button")
+            button.click()
+            joined=True
+        except TimeoutException:
+            print("waiting for joining")
+            continue
+            
 
 def getLetters():
     letters= driver.find_element("xpath", "/html/body/div[2]/div[2]/div[2]/div[2]/div")
